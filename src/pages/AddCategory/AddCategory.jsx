@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2'; // or use react-hot-toast
-import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2'; 
+
 
 const AddCategory = () => {
   const {
@@ -42,9 +42,7 @@ const AddCategory = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-8 p-8 bg-base-100 rounded shadow">
-      <Helmet>
-        <title>Add Category | Lifenix Admin</title>
-      </Helmet>
+      
 
       <h2 className="text-2xl font-semibold mb-4 text-center">Add New Category</h2>
 

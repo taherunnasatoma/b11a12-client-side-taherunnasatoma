@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import SocialLogin from '../SocialLogin/SocialLogin';
-import { Helmet } from 'react-helmet-async';
+
 
 const Login = () => {
 
@@ -13,9 +13,7 @@ const Login = () => {
   }
   return (
     <div>
-      <Helmet>
-        <title>Login | Lifenix</title>
-      </Helmet>
+      
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body">
           <h1 className="text-4xl font-bold"> Please Login Now!</h1>
