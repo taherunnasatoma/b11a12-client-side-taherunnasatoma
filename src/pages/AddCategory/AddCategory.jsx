@@ -3,6 +3,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2'; 
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 
 const AddCategory = () => {
@@ -13,31 +14,27 @@ const AddCategory = () => {
     formState: { errors }
   } = useForm();
 
+  const axiosSecure = useAxiosSecure()
+
   const onSubmit = async (data) => {
     const category = {
       name: data.categoryName,
       image: data.categoryImage
     };
 
-    try {
-      // TODO: replace URL with your backend endpoint
-      const res = await fetch('https://your-api.com/categories', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(category)
-      });
+     try {
+    const res = await axiosSecure.post('/categories', category);
 
-      const result = await res.json();
-      if (result.insertedId) {
-        Swal.fire('Success', 'Category added successfully!', 'success');
-        reset();
-      }
-    } catch (err) {
-      console.error(err);
-      Swal.fire('Error', 'Something went wrong.', 'error');
+    if (res.data.insertedId) {
+      Swal.fire('Success', 'Category added successfully!', 'success');
+      reset();
     }
+  } catch (error) {
+    console.error(error);
+    Swal.fire('Error', 'Something went wrong.', 'error');
+  }
+
+
   };
 
   return (
