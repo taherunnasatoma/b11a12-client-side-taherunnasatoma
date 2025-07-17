@@ -9,6 +9,7 @@ const ManageCategory = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingCategory, setEditingCategory] = useState(null);
 
     const { data: categories = [], refetch } = useQuery({
         queryKey: ['manage-category'],
@@ -26,31 +27,31 @@ const ManageCategory = () => {
     } = useForm();
 
     const handleDelete = (id) => {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: 'This action cannot be undone!',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Yes, delete it!'
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      try {
-        const res = await axiosSecure.delete(`/categories/${id}`);
-        if (res.data.success) {
-          Swal.fire('Deleted!', 'Category has been deleted.', 'success');
-          refetch();
-        } else {
-          Swal.fire('Error!', 'Failed to delete the category.', 'error');
-        }
-      } catch (error) {
-        console.error(error);
-        Swal.fire('Error!', 'Something went wrong.', 'error');
-      }
-    }
-  });
-};
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This action cannot be undone!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const res = await axiosSecure.delete(`/categories/${id}`);
+                    if (res.data.success) {
+                        Swal.fire('Deleted!', 'Category has been deleted.', 'success');
+                        refetch();
+                    } else {
+                        Swal.fire('Error!', 'Failed to delete the category.', 'error');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    Swal.fire('Error!', 'Something went wrong.', 'error');
+                }
+            }
+        });
+    };
 
     const onSubmit = async (data) => {
         const category = {
@@ -103,7 +104,13 @@ const ManageCategory = () => {
                                 </td>
                                 <td>{cat.created_by}</td>
                                 <td className="space-x-2">
-                                    <button className="btn btn-sm btn-info">Edit</button>
+                                    <button
+                                        onClick={() => setEditingCategory(cat)}
+                                        className="btn btn-sm btn-info"
+                                    >
+                                        Edit
+                                    </button>
+                                  
                                     <button onClick={() => handleDelete(cat._id)} className="btn btn-sm btn-error">
                                         Delete
                                     </button>
@@ -151,10 +158,75 @@ const ManageCategory = () => {
                             <button type="submit" className="btn bg-green-600 w-full text-white">
                                 Add Category
                             </button>
+
+
                         </form>
                     </div>
                 </div>
             )}
+
+            {editingCategory && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white w-full max-w-md p-6 rounded shadow-lg relative">
+                        <button
+                            onClick={() => setEditingCategory(null)}
+                            className="absolute top-2 right-3 text-gray-500 hover:text-red-600"
+                        >
+                            ✕
+                        </button>
+                        <h3 className="text-xl font-bold mb-4">Update Category</h3>
+
+                        <form
+                            onSubmit={handleSubmit(async (data) => {
+                                const updatedCategory = {
+                                    name: data.categoryName,
+                                    image: data.categoryImage,
+                                    updatedAt: new Date(),
+                                };
+
+                                try {
+                                    const res = await axiosSecure.patch(`/categories/${editingCategory._id}`, updatedCategory);
+                                    if (res.data.success) {
+                                        Swal.fire('Success', 'Category updated successfully!', 'success');
+                                        refetch();
+                                        setEditingCategory(null);
+                                    } else {
+                                        Swal.fire('Error', 'Failed to update category', 'error');
+                                    }
+                                } catch (error) {
+                                    Swal.fire('Error', 'Something went wrong', 'error');
+                                }
+                            })}
+                            className="space-y-4"
+                        >
+                            <div>
+                                <label className="label">Category Name</label>
+                                <input
+                                    defaultValue={editingCategory.name}
+                                    {...register('categoryName', { required: true })}
+                                    className="input input-bordered w-full"
+                                />
+                                {errors.categoryName && <p className="text-red-500 text-sm">Category name is required</p>}
+                            </div>
+
+                            <div>
+                                <label className="label">Image URL</label>
+                                <input
+                                    defaultValue={editingCategory.image}
+                                    {...register('categoryImage', { required: true })}
+                                    className="input input-bordered w-full"
+                                />
+                                {errors.categoryImage && <p className="text-red-500 text-sm">Image URL is required</p>}
+                            </div>
+
+                            <button type="submit" className="btn bg-blue-600 w-full text-white">
+                                Update Category
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 };
