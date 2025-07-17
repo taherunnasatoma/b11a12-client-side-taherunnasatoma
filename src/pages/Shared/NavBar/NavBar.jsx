@@ -1,13 +1,21 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router';
-import logo from '../../../assets/logo.png'
+import logo from '/logo.png'
+import useAuth from '../../../hooks/useAuth';
 
 const NavBar = () => {
+
+    const {user} = useAuth()
 
     const navItems = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/'>Shop</NavLink></li>
         <li><NavLink to='/addCategory'>Add Category</NavLink></li>
+        {
+            user && <>
+            <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+            </>
+        }
 
 
 
@@ -28,7 +36,7 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <Link to='/'><a className="btn btn-ghost text-xl flex items-center gap-2">
-                    <img src={logo} alt="Litenix Logo" className="h-16 w-auto" />
+                    <img src={logo} alt="Litenix Logo" className="h-25 w-auto" />
 
                 </a></Link>
 

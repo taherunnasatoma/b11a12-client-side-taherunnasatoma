@@ -4,6 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2'; 
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useAuth from '../../hooks/useAuth';
 
 
 const AddCategory = () => {
@@ -14,12 +15,16 @@ const AddCategory = () => {
     formState: { errors }
   } = useForm();
 
+  const {user} = useAuth()
+
   const axiosSecure = useAxiosSecure()
 
   const onSubmit = async (data) => {
     const category = {
       name: data.categoryName,
-      image: data.categoryImage
+      image: data.categoryImage,
+      created_by: user.email, 
+    createdAt: new Date(), 
     };
 
      try {
