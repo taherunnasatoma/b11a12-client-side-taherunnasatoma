@@ -1,11 +1,12 @@
 import React from 'react';
+import CategorySection from './Category/CategorySection';
 
 
 const Home = () => {
     return (
-        <div>
+        <div className='max-w-7xl mx-auto'>
              
-           This is home 
+          <CategorySection></CategorySection>
         </div>
     );
 };

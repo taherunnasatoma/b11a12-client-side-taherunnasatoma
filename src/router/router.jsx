@@ -10,6 +10,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import ManageCategory from "../pages/AdminDashboard/ManageCategory/ManageCategory";
 import ManageMedicines from "../pages/SellerDashboard/ManageMedicines";
 import Shop from "../pages/Shop/Shop";
+import CategoryDetails from "../pages/Home/Home/Category/CategoryDetails";
 
 export const router = createBrowserRouter([
   {
@@ -25,8 +26,12 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><AddCategory></AddCategory></PrivateRoute>
       },
       {
-        path:'shop',
-        Component:Shop
+        path: 'shop',
+        Component: Shop
+      },
+      {
+        path: "category/:categoryName",
+        element: <CategoryDetails />
       }
     ]
   },
@@ -48,16 +53,16 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <PrivateRoute>
-     <DashboardLayout></DashboardLayout>
+      <DashboardLayout></DashboardLayout>
     </PrivateRoute>,
-    children:[
+    children: [
       {
-        path:'manageCategory',
-        Component:ManageCategory
+        path: 'manageCategory',
+        Component: ManageCategory
       },
       {
-        path:'manageMedicines',
-        Component:ManageMedicines
+        path: 'manageMedicines',
+        Component: ManageMedicines
       }
 
     ]
