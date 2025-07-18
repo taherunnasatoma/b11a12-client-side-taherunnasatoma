@@ -9,6 +9,7 @@ import PrivateRoute from "../routes/PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ManageCategory from "../pages/AdminDashboard/ManageCategory/ManageCategory";
 import ManageMedicines from "../pages/SellerDashboard/ManageMedicines";
+import Shop from "../pages/Shop/Shop";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: 'addCategory',
         element: <PrivateRoute><AddCategory></AddCategory></PrivateRoute>
+      },
+      {
+        path:'shop',
+        Component:Shop
       }
     ]
   },
