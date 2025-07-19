@@ -4,10 +4,13 @@ import logo from '/logo.png';
 import { FaCartArrowDown } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import useAuth from '../../../hooks/useAuth';
+import { useCart } from '../../../contexts/CardContext/CardContext';
 
 const NavBar = () => {
   const { user, logOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartItems } = useCart();
+
 
   const handleLogOut = () => {
     logOut()
@@ -62,9 +65,17 @@ const NavBar = () => {
       {/* Right: Cart, Language, Profile or Join */}
       <div className="navbar-end flex items-center gap-4">
         {/* Cart Icon */}
-        <Link to="/cart" className="tooltip tooltip-bottom" data-tip="Cart">
-          <FaCartArrowDown className="text-2xl cursor-pointer" />
-        </Link>
+        <div className="relative">
+  <Link to="/cart" className="tooltip tooltip-bottom" data-tip="Cart">
+    <FaCartArrowDown className="text-2xl cursor-pointer" />
+  </Link>
+  {cartItems.length > 0 && (
+    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
+      {cartItems.length}
+    </span>
+  )}
+</div>
+
 
         {/* Language Dropdown Placeholder */}
         <div className="dropdown dropdown-end hidden sm:block">

@@ -11,6 +11,7 @@ import ManageCategory from "../pages/AdminDashboard/ManageCategory/ManageCategor
 import ManageMedicines from "../pages/SellerDashboard/ManageMedicines";
 import Shop from "../pages/Shop/Shop";
 import CategoryDetails from "../pages/Home/Home/Category/CategoryDetails";
+import CartPage from "../pages/Card/CardPage";
 
 export const router = createBrowserRouter([
   {
@@ -31,8 +32,10 @@ export const router = createBrowserRouter([
       },
       {
         path: "category/:categoryName",
-        element: <CategoryDetails />
-      }
+        element: <CategoryDetails></CategoryDetails>
+      },
+       { path: '/cart', 
+        element: <PrivateRoute><CartPage></CartPage></PrivateRoute> }
     ]
   },
   {

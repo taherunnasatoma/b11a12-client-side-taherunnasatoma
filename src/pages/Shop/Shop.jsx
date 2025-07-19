@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { FaEye, FaCartPlus } from 'react-icons/fa';
 import Modal from 'react-modal';
+import { useCart } from '../../contexts/CardContext/CardContext';
 
 Modal.setAppElement('#root');
 
@@ -11,6 +12,8 @@ const Shop = () => {
     const [selectedMedicine, setSelectedMedicine] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [cart, setCart] = useState([]); // local cart state
+    const { addToCart } = useCart();
+
 
     const { data: medicines = [], isLoading } = useQuery({
         queryKey: ['medicines'],
@@ -59,7 +62,7 @@ const Shop = () => {
                                     <button onClick={() => handleView(med)} className="text-blue-500 hover:text-blue-700">
                                         <FaEye />
                                     </button>
-                                    <button onClick={() => handleSelect(med)} className="text-green-600 hover:text-green-800">
+                                    <button onClick={() => addToCart(med)} className="btn btn-sm btn-success">
                                         <FaCartPlus />
                                     </button>
                                 </td>
