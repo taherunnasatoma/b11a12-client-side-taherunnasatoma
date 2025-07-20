@@ -17,64 +17,70 @@ const PaymentForm = () => {
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!stripe || !elements) return;
+  e.preventDefault();
+  if (!stripe || !elements) return;
 
-    const card = elements.getElement(CardElement);
-    if (!card) return;
+  const card = elements.getElement(CardElement);
+  if (!card) return;
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card,
-    });
+  const { error: paymentError, paymentMethod } = await stripe.createPaymentMethod({
+    type: 'card',
+    card,
+  });
 
-    if (error) {
-      setError(error.message);
-    } else {
-      setError('');
+  if (paymentError) {
+    setError(paymentError.message);
+  } else {
+    setError('');
 
+    const transactionId = `txn_${Date.now()}`;
 
-      const transactionId = `txn_${Date.now()}`;
+    const order = {
+      userEmail: user?.email,
+      items: cartItems,
+      totalAmount: parseFloat(total),
+      transactionId,
+      status: 'pending',
+      createdAt: new Date(),
+    };
 
-      const order = {
+    try {
+      // Save order
+      await axiosSecure.post('/orders', order);
+
+      // Save payment with all details including items and totalAmount
+      const { data } = await axiosSecure.post('/payments', {
         userEmail: user?.email,
         items: cartItems,
         totalAmount: parseFloat(total),
+        amount: parseFloat(total),
         transactionId,
-        status: 'pending',
+        status: 'paid',
         createdAt: new Date(),
-      };
-      try {
-        await axiosSecure.post('/orders', order);
-        clearCart(); // Clear cart after successful order creation
-        await axiosSecure.post('/payments', {
-          userEmail: user?.email,
-          amount: parseFloat(total),
-          transactionId,
-          status: 'pending',
-          createdAt: new Date(),
-        });
+      });
 
+      const invoiceNumber = data.invoiceNumber;
 
-        Swal.fire({
-          title: 'Payment Successful!',
-          text: 'Your order has been placed.',
-          icon: 'success',
-          confirmButtonText: 'Go to My Orders',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = '/dashboard/myOrders'; // ✅ Change route if needed
-          }
-        });
-      } catch (err) {
-        console.error('Order creation failed:', err);
-        Swal.fire('Error', 'Something went wrong while placing the order.', 'error');
-      }
+      clearCart();
 
-
-      console.log('Payment Method:', paymentMethod);
+      Swal.fire({
+        title: 'Payment Successful!',
+        text: `Invoice #${invoiceNumber}`,
+        icon: 'success',
+        confirmButtonText: 'View Invoice',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = `/dashboard/invoice/${invoiceNumber}`;
+        }
+      });
+    } catch (err) {
+      console.error('Order/payment creation failed:', err);
+      Swal.fire('Error', 'Something went wrong while placing the order.', 'error');
     }
-  };
+    console.log('payment method',paymentMethod)
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit} className='space-y-4 bg-white p-6 rounded-xl shadow-md w-full max-w-md mx-auto'>

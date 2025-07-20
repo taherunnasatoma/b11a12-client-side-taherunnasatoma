@@ -47,7 +47,8 @@ const DashboardLayout = () => {
                     <li><NavLink to='/'>Home</NavLink></li>
                     <li><NavLink to='/dashboard/manageCategory'>Manage Category</NavLink></li>
                     <li><NavLink to='/dashboard/manageMedicines'>Manage Medicines</NavLink></li>
-                    <li><NavLink to='/dashboard/myOrders'>My Orders</NavLink></li>
+                    <li><NavLink to='/dashboard/myOrders'>Payment History</NavLink></li>
+                    <li><NavLink to='/dashboard/invoice'>Invoice Page</NavLink></li>
                 </ul>
             </div>
         </div>
