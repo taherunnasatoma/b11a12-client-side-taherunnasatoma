@@ -17,6 +17,7 @@ export const CartProvider = ({ children }) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["cart", userEmail],
     queryFn: async () => {
+       if (!userEmail) throw new Error("No user email for cart fetch");
       const res = await axiosSecure.get(`/cart?email=${userEmail}`);
       return res.data;
     },
@@ -26,6 +27,7 @@ export const CartProvider = ({ children }) => {
  
   const mutation = useMutation({
     mutationFn: async (newCart) => {
+      if (!userEmail) throw new Error("No user email for cart update");
       return await axiosSecure.post("/cart", {
         userEmail,
         items: newCart,

@@ -38,6 +38,11 @@ const CartPage = () => {
     });
   };
 
+  const handlePay=()=>{
+    navigate(`/dashboard/payment/`)
+
+  }
+
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -111,7 +116,7 @@ const CartPage = () => {
                 Clear Cart
               </button>
               <button
-                onClick={() => navigate("/checkout")}
+                onClick={handlePay}
                 className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
               >
                 Proceed to Checkout

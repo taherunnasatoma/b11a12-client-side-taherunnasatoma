@@ -12,6 +12,8 @@ import ManageMedicines from "../pages/SellerDashboard/ManageMedicines";
 import Shop from "../pages/Shop/Shop";
 import CategoryDetails from "../pages/Home/Home/Category/CategoryDetails";
 import CartPage from "../pages/Card/CardPage";
+import Payment from "../pages/Dashboard/Payment/Payment";
+import MyOrders from "../pages/UserDasboard/MyOrder/MyOrders";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +68,14 @@ export const router = createBrowserRouter([
       {
         path: 'manageMedicines',
         Component: ManageMedicines
+      },
+      {
+        path:'payment',
+        Component:Payment
+      },
+      {
+        path:'myOrders',
+        Component:MyOrders
       }
 
     ]
