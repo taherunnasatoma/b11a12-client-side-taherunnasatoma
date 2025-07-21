@@ -15,6 +15,8 @@ import CartPage from "../pages/Card/CardPage";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import MyOrders from "../pages/UserDasboard/MyOrder/MyOrders";
 import InvoicePage from "../pages/UserDasboard/InvoicePage/InvoicePage";
+import SellerAdvertisement from "../pages/SellerDashboard/SellerAdvertisement/SellerAdvertisement";
+
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +83,10 @@ export const router = createBrowserRouter([
       {
          path:'invoice/:invoiceNumber',
          Component:InvoicePage
+      },
+      {
+        path:'sellerAdvertise',
+        Component:SellerAdvertisement
       }
 
     ]
