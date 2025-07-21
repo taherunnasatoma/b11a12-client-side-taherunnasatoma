@@ -16,6 +16,7 @@ import Payment from "../pages/Dashboard/Payment/Payment";
 import MyOrders from "../pages/UserDasboard/MyOrder/MyOrders";
 import InvoicePage from "../pages/UserDasboard/InvoicePage/InvoicePage";
 import SellerAdvertisement from "../pages/SellerDashboard/SellerAdvertisement/SellerAdvertisement";
+import ManageAdvertisement from "../pages/AdminDashboard/ManageAdvertisement/ManageAdvertisement";
 
 
 export const router = createBrowserRouter([
@@ -87,6 +88,10 @@ export const router = createBrowserRouter([
       {
         path:'sellerAdvertise',
         Component:SellerAdvertisement
+      },
+      {
+        path:'manageAdvertise',
+        Component:ManageAdvertisement
       }
 
     ]
