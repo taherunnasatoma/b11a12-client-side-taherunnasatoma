@@ -10,26 +10,27 @@ const Register = () => {
 
   const { createUser, updateUserProfile } = useAuth()
   const [profilePic, setProfilePic] = useState('')
-  const axiosInstance= useAxios()
+  const axiosInstance = useAxios()
 
   const onSubmit = data => {
     console.log(data)
     createUser(data.email, data.password)
-      .then(async(result) => {
+      .then(async (result) => {
         console.log(result.user)
 
 
-        const userInfo={
-          email:data.email,
-          role:'user',// default role
-          created_at:new Date().toISOString(),
-          last_log_in:new Date().toISOString()
-          
+        const userInfo = {
+          email: data.email,
+          role: data.role || 'user',  // fallback to 'user' if missing
+          created_at: new Date().toISOString(),
+          last_log_in: new Date().toISOString(),
+          name: data.name,
+          photoURL: profilePic,
 
         }
 
- 
-        const userRes = await axiosInstance.post('/users',userInfo)
+
+        const userRes = await axiosInstance.post('/users', userInfo)
         console.log(userRes.data)
 
 
@@ -89,6 +90,14 @@ const Register = () => {
             <input type="file"
               onChange={handleImageUpload}
               className="input" placeholder="Your Profile Picture" />
+
+            {/* <-- Add Role Select here --> */}
+            <label className="label">Select Role</label>
+            <select {...register('role', { required: true })} className="input">
+              <option value="user">User</option>
+              <option value="seller">Seller</option>
+            </select>
+            {errors.role && <p className="text-red-500">Role is required</p>}
 
 
             <label className="label">Email</label>
