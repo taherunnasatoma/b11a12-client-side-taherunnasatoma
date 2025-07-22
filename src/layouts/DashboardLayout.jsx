@@ -51,6 +51,7 @@ const DashboardLayout = () => {
                     <li><NavLink to='/dashboard/invoice'>Invoice Page</NavLink></li>
                     <li><NavLink to='/dashboard/sellerAdvertise'>Seller Advertisement</NavLink></li>
                     <li><NavLink to='/dashboard/manageAdvertise'>Manage Advertisement</NavLink></li>
+                    <li><NavLink to='/dashboard/manageUsers'>Manage Users</NavLink></li>
                 </ul>
             </div>
         </div>

@@ -17,6 +17,7 @@ import MyOrders from "../pages/UserDasboard/MyOrder/MyOrders";
 import InvoicePage from "../pages/UserDasboard/InvoicePage/InvoicePage";
 import SellerAdvertisement from "../pages/SellerDashboard/SellerAdvertisement/SellerAdvertisement";
 import ManageAdvertisement from "../pages/AdminDashboard/ManageAdvertisement/ManageAdvertisement";
+import ManageUsers from "../pages/AdminDashboard/ManageUsers/ManageUsers";
 
 
 export const router = createBrowserRouter([
@@ -85,6 +86,13 @@ export const router = createBrowserRouter([
          path:'invoice/:invoiceNumber',
          Component:InvoicePage
       },
+
+           {
+
+            path:'manageUsers',
+            Component:ManageUsers
+
+           },
       {
         path:'sellerAdvertise',
         Component:SellerAdvertisement
