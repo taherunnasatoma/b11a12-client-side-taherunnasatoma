@@ -72,6 +72,11 @@ const DashboardLayout = () => {
         <FaUsers /> Manage Users
       </NavLink>
     </li>
+    <li>
+      <NavLink to='/dashboard/paymentManagement'>
+        <FaHistory /> Payment Management
+      </NavLink>
+    </li>
   </>
 )}
 

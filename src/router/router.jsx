@@ -20,6 +20,7 @@ import ManageAdvertisement from "../pages/AdminDashboard/ManageAdvertisement/Man
 import ManageUsers from "../pages/AdminDashboard/ManageUsers/ManageUsers";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
+import PaymentManagement from "../pages/AdminDashboard/PaymentManagement/PaymentManagement";
 
 
 export const router = createBrowserRouter([
@@ -43,12 +44,13 @@ export const router = createBrowserRouter([
         path: "category/:categoryName",
         element: <CategoryDetails></CategoryDetails>
       },
-       { path: '/cart', 
-        element: <PrivateRoute><CartPage></CartPage></PrivateRoute> 
+      {
+        path: '/cart',
+        element: <PrivateRoute><CartPage></CartPage></PrivateRoute>
       },
       {
-        path:'forbidden',
-        Component:Forbidden
+        path: 'forbidden',
+        Component: Forbidden
       }
     ]
   },
@@ -73,41 +75,50 @@ export const router = createBrowserRouter([
       <DashboardLayout></DashboardLayout>
     </PrivateRoute>,
     children: [
-      {
-        path: 'manageCategory',
-        Component: ManageCategory
-      },
+      
       {
         path: 'manageMedicines',
         Component: ManageMedicines
       },
       {
-        path:'payment',
-        Component:Payment
+        path: 'payment',
+        Component: Payment
       },
       {
-        path:'myOrders',
-        Component:MyOrders
+        path: 'myOrders',
+        Component: MyOrders
       },
       {
-         path:'invoice/:invoiceNumber',
-         Component:InvoicePage
+        path: 'invoice/:invoiceNumber',
+        Component: InvoicePage
+      },
+      {
+        path: 'manageCategory',
+        element:<AdminRoute><ManageCategory></ManageCategory></AdminRoute>
+      },
+      {
+        path: 'manageAdvertise',
+       element:<AdminRoute><ManageAdvertisement></ManageAdvertisement></AdminRoute>
       },
 
-           {
-
-            path:'manageUsers',
-            element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>
-
-           },
       {
-        path:'sellerAdvertise',
-        Component:SellerAdvertisement
+
+        path: 'manageUsers',
+        element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
+
       },
       {
-        path:'manageAdvertise',
-        Component:ManageAdvertisement
-      }
+
+        path: 'paymentManagement',
+        element: <AdminRoute><PaymentManagement></PaymentManagement></AdminRoute>
+
+      },
+      {
+        path: 'sellerAdvertise',
+        Component: SellerAdvertisement
+      },
+
+
 
     ]
   }

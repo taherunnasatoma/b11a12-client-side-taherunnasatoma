@@ -6,11 +6,11 @@ const axiosSecure = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-const useAxiosSecure = () => {
+const useAxiosSecure = (onUnauthorized) => {
   const { user } = useAuth();
 
   useEffect(() => {
-    const interceptor = axiosSecure.interceptors.request.use(
+    const requestInterceptor = axiosSecure.interceptors.request.use(
       (config) => {
         if (user?.accessToken) {
           config.headers.Authorization = `Bearer ${user.accessToken}`;
@@ -20,10 +20,22 @@ const useAxiosSecure = () => {
       (error) => Promise.reject(error)
     );
 
+    const responseInterceptor = axiosSecure.interceptors.response.use(
+      (res) => res,
+      (error) => {
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+          console.error('Unauthorized access — redirecting...');
+          if (onUnauthorized) onUnauthorized(); // <-- use navigate() safely
+        }
+        return Promise.reject(error);
+      }
+    );
+
     return () => {
-      axiosSecure.interceptors.request.eject(interceptor);
+      axiosSecure.interceptors.request.eject(requestInterceptor);
+      axiosSecure.interceptors.response.eject(responseInterceptor);
     };
-  }, [user]);
+  }, [user, onUnauthorized]);
 
   return axiosSecure;
 };

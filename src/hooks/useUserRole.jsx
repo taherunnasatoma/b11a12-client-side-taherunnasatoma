@@ -23,7 +23,7 @@ const useUserRole = () => {
 
   return {
     role: roleData,
-    isLoading: authLoading || roleLoading,
+   roleLoading,
     isError,
     error,
     refetchRole: refetch,

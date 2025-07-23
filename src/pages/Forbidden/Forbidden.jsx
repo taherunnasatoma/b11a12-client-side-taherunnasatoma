@@ -4,7 +4,7 @@ import { FaBan } from 'react-icons/fa';
 
 const Forbidden = () => {
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-red-50 px-4">
+        <div className="min-h-screen  flex flex-col items-center justify-center  px-4">
             <div className="text-center">
                 <FaBan className="text-6xl text-red-600 mb-4 animate-pulse" />
                 <h1 className="text-4xl font-bold text-red-700 mb-2">403 - Forbidden</h1>
