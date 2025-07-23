@@ -18,6 +18,8 @@ import InvoicePage from "../pages/UserDasboard/InvoicePage/InvoicePage";
 import SellerAdvertisement from "../pages/SellerDashboard/SellerAdvertisement/SellerAdvertisement";
 import ManageAdvertisement from "../pages/AdminDashboard/ManageAdvertisement/ManageAdvertisement";
 import ManageUsers from "../pages/AdminDashboard/ManageUsers/ManageUsers";
+import Forbidden from "../pages/Forbidden/Forbidden";
+import AdminRoute from "../routes/AdminRoute";
 
 
 export const router = createBrowserRouter([
@@ -42,7 +44,12 @@ export const router = createBrowserRouter([
         element: <CategoryDetails></CategoryDetails>
       },
        { path: '/cart', 
-        element: <PrivateRoute><CartPage></CartPage></PrivateRoute> }
+        element: <PrivateRoute><CartPage></CartPage></PrivateRoute> 
+      },
+      {
+        path:'forbidden',
+        Component:Forbidden
+      }
     ]
   },
   {
@@ -90,7 +97,7 @@ export const router = createBrowserRouter([
            {
 
             path:'manageUsers',
-            Component:ManageUsers
+            element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>
 
            },
       {

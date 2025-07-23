@@ -1,8 +1,13 @@
 import React from 'react';
 import {  Link, NavLink, Outlet } from 'react-router';
 import logo from '/logo.png'
+import { FaBullhorn, FaCogs, FaFileInvoice, FaHistory, FaHome, FaPills, FaTags, FaUsers } from 'react-icons/fa';
+import useUserRole from '../hooks/useUserRole';
 
 const DashboardLayout = () => {
+
+    const {role,roleLoading } = useUserRole()
+    console.log(role)
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -37,22 +42,76 @@ const DashboardLayout = () => {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-                    {/* Sidebar content here */}
+               <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+  <Link to='/'  className="btn btn-ghost text-xl -ml-3 mb-4">
+    
+      <img src={logo} alt="Litenix Logo" className="h-25 w-auto " />
+  
+  </Link>
 
-                     <Link to='/'><a className="btn btn-ghost text-xl -ml-3 mb-4">
-                    <img src={logo} alt="Litenix Logo" className="h-25 w-auto "/>
+  <li>
+    <NavLink to='/' className="flex items-center gap-2">
+      <FaHome /> Home
+    </NavLink>
+  </li>
+ {/* Admin Menu */}
+{!roleLoading && role === 'admin' && (
+  <>
+    <li>
+      <NavLink to='/dashboard/manageCategory'>
+        <FaTags /> Manage Category
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to='/dashboard/manageAdvertise'>
+        <FaCogs /> Manage Advertisement
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to='/dashboard/manageUsers'>
+        <FaUsers /> Manage Users
+      </NavLink>
+    </li>
+  </>
+)}
 
-                </a></Link>
-                    <li><NavLink to='/'>Home</NavLink></li>
-                    <li><NavLink to='/dashboard/manageCategory'>Manage Category</NavLink></li>
-                    <li><NavLink to='/dashboard/manageMedicines'>Manage Medicines</NavLink></li>
-                    <li><NavLink to='/dashboard/myOrders'>Payment History</NavLink></li>
-                    <li><NavLink to='/dashboard/invoice'>Invoice Page</NavLink></li>
-                    <li><NavLink to='/dashboard/sellerAdvertise'>Seller Advertisement</NavLink></li>
-                    <li><NavLink to='/dashboard/manageAdvertise'>Manage Advertisement</NavLink></li>
-                    <li><NavLink to='/dashboard/manageUsers'>Manage Users</NavLink></li>
-                </ul>
+{/* Seller Menu */}
+{!roleLoading && role === 'seller' && (
+  <>
+    <li>
+      <NavLink to='/dashboard/manageMedicines'>
+        <FaPills /> Manage Medicines
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to='/dashboard/sellerAdvertise'>
+        <FaBullhorn /> Seller Advertisement
+      </NavLink>
+    </li>
+   
+  </>
+)}
+
+{/* Normal User Menu */}
+{!roleLoading && role === 'user' && (
+  <>
+    
+     <li>
+      <NavLink to='/dashboard/myOrders'>
+        <FaHistory /> Payment History
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to='/dashboard/invoice'>
+        <FaFileInvoice /> Invoice Page
+      </NavLink>
+    </li>
+  </>
+)}
+
+  
+  
+</ul>
             </div>
         </div>
     );

@@ -17,13 +17,13 @@ const MyOrders = () => {
     enabled: !!user?.email,
   });
 
-  if (isLoading) return <p className='text-center'>Loading orders...</p>;
+  if (isLoading) return <p className='text-center'>Loading History...</p>;
 
   return (
     <div className='p-6 max-w-4xl mx-auto'>
-      <h2 className='text-2xl font-bold mb-4'>My Orders</h2>
+      <h2 className='text-2xl font-bold mb-4'>Payment History</h2>
       {orders.length === 0 ? (
-        <p>No orders found.</p>
+        <p>No history found.</p>
       ) : (
         <table className='w-full table-auto border'>
           <thead className='bg-gray-100'>
