@@ -22,6 +22,7 @@ import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
 import PaymentManagement from "../pages/AdminDashboard/PaymentManagement/PaymentManagement";
 import SellerPaymentHistory from "../pages/SellerDashboard/SellerPaymentHistory/SellerPaymentHistory";
+import AdminSalesReport from "../pages/AdminDashboard/AdminSalesReport/AdminSalesReport";
 
 
 export const router = createBrowserRouter([
@@ -100,6 +101,11 @@ export const router = createBrowserRouter([
       {
         path: 'manageAdvertise',
        element:<AdminRoute><ManageAdvertisement></ManageAdvertisement></AdminRoute>
+      },
+      {
+        path:'adminSales',
+        element:<AdminRoute><AdminSalesReport></AdminSalesReport></AdminRoute>
+
       },
 
       {

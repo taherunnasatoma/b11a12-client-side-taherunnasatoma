@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Link, NavLink, Outlet } from 'react-router';
 import logo from '/logo.png'
-import { FaBullhorn, FaCogs, FaFileInvoice, FaHistory, FaHome, FaPills, FaTags, FaUsers } from 'react-icons/fa';
+import { FaBullhorn, FaCogs, FaFileInvoice, FaHistory, FaHome, FaPills, FaReceipt, FaTags, FaUsers } from 'react-icons/fa';
 import useUserRole from '../hooks/useUserRole';
 
 const DashboardLayout = () => {
@@ -70,6 +70,11 @@ const DashboardLayout = () => {
     <li>
       <NavLink to='/dashboard/manageUsers'>
         <FaUsers /> Manage Users
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to='/dashboard/adminSales'>
+        <FaReceipt /> Admin Sales Report
       </NavLink>
     </li>
     <li>
