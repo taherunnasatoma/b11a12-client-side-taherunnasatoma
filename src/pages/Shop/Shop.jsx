@@ -44,6 +44,7 @@ const Shop = () => {
                         <tr>
                             <th className="px-4 py-2">Item Name</th>
                             <th className="px-4 py-2">Generic</th>
+                            <th className="px-4 py-2">Category</th>
                             <th className="px-4 py-2">Price</th>
                             <th className="px-4 py-2">Mass</th>
                             <th className="px-4 py-2">Company</th>
@@ -55,6 +56,7 @@ const Shop = () => {
                             <tr key={med._id} className="border-b hover:bg-gray-100">
                                 <td className="px-4 py-2">{med.itemName}</td>
                                 <td className="px-4 py-2">{med.genericName}</td>
+                                <td className="px-4 py-2">{med.category}</td>
                                 <td className="px-4 py-2">${med.price}</td>
                                 <td className="px-4 py-2">{med.mass} {med.massUnit}</td>
                                 <td className="px-4 py-2">{med.company}</td>

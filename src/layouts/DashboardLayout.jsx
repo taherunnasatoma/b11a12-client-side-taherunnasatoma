@@ -93,6 +93,11 @@ const DashboardLayout = () => {
         <FaBullhorn /> Seller Advertisement
       </NavLink>
     </li>
+    <li>
+      <NavLink to='/dashboard/sellerPayment'>
+        <FaHistory /> Payment History
+      </NavLink>
+    </li>
    
   </>
 )}

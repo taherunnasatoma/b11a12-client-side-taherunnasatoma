@@ -21,6 +21,7 @@ import ManageUsers from "../pages/AdminDashboard/ManageUsers/ManageUsers";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
 import PaymentManagement from "../pages/AdminDashboard/PaymentManagement/PaymentManagement";
+import SellerPaymentHistory from "../pages/SellerDashboard/SellerPaymentHistory/SellerPaymentHistory";
 
 
 export const router = createBrowserRouter([
@@ -117,6 +118,10 @@ export const router = createBrowserRouter([
         path: 'sellerAdvertise',
         Component: SellerAdvertisement
       },
+      {
+        path:'sellerPayment',
+        Component:SellerPaymentHistory
+      }
 
 
 
