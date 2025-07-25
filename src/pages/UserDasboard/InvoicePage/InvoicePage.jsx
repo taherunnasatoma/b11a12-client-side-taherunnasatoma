@@ -10,13 +10,10 @@ const InvoicePage = ({ paymentData }) => {
     content: () => componentRef.current,
     documentTitle: `Invoice_${paymentData?.invoiceNumber || 'N/A'}`,
   });
-  
-
 
   const {
     invoiceNumber,
     items = [],
-    totalAmount,
     amount,
     transactionId,
     status,
@@ -24,8 +21,14 @@ const InvoicePage = ({ paymentData }) => {
     createdAt,
   } = paymentData || {};
 
-  // Use paidAt first, fallback to createdAt
-  const formattedDate = new Date(paidAt || createdAt).toLocaleString();
+  // Calculate totalAmount manually
+  const totalAmount = items.reduce(
+    (sum, item) => sum + (item.price || 0) * (item.quantity || 1),
+    0
+  );
+
+  const dateString = paidAt || createdAt || null;
+  const formattedDate = dateString ? new Date(dateString).toLocaleString() : "Invalid Date";
 
   return (
     <div className='p-6'>
@@ -39,7 +42,6 @@ const InvoicePage = ({ paymentData }) => {
       </div>
 
       <div ref={componentRef} className='bg-white p-8 shadow-md max-w-3xl mx-auto border'>
-        {/* Header */}
         <div className='flex items-center justify-between mb-8'>
           <div className='text-right'>
             <h2 className='text-xl font-bold'>Invoice</h2>
@@ -48,14 +50,12 @@ const InvoicePage = ({ paymentData }) => {
           </div>
         </div>
 
-        {/* User Info */}
         <div className='mb-6'>
           <h3 className='text-lg font-semibold mb-2'>Customer Information</h3>
           <p>Name: {user?.displayName || 'N/A'}</p>
           <p>Email: {user?.email}</p>
         </div>
 
-        {/* Items Table */}
         <div className='mb-6'>
           <h3 className='text-lg font-semibold mb-2'>Purchased Items</h3>
           <table className='w-full table-auto border'>
@@ -90,15 +90,15 @@ const InvoicePage = ({ paymentData }) => {
           </table>
         </div>
 
-        {/* Summary */}
         <div className='text-right'>
           <p className='font-semibold'>Transaction ID: {transactionId || 'N/A'}</p>
           <p className='font-semibold'>Status: {status || 'N/A'}</p>
-          <p className='text-xl font-bold mt-2'>Total: ${totalAmount?.toFixed(2) || amount?.toFixed(2) || '0.00'}</p>
+          <p className='text-xl font-bold mt-2'>Total: ${totalAmount.toFixed(2)}</p>
         </div>
       </div>
     </div>
   );
 };
+
 
 export default InvoicePage;

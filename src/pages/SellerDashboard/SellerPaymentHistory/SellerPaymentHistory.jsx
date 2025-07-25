@@ -7,9 +7,19 @@ const SellerPaymentHistory = () => {
   if (isLoading) return <p>Loading payment history...</p>;
   if (error) return <p>Error loading payment history</p>;
 
+  // 🔢 Calculate totals
+  const totalRevenue = payments.reduce((sum, payment) => sum + payment.amount, 0);
+  const totalOrders = payments.length;
+
   return (
     <div className="p-4">
       <h2 className="text-xl font-semibold mb-4">Payment History for Your Medicines</h2>
+
+      {/* ✅ Summary Section */}
+      <div className="mb-6">
+        <p><strong>Total Orders:</strong> {totalOrders}</p>
+        <p><strong>Total Revenue:</strong> ${totalRevenue.toFixed(2)}</p>
+      </div>
 
       {payments.length === 0 ? (
         <p>No payment records found.</p>

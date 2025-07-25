@@ -23,6 +23,8 @@ import AdminRoute from "../routes/AdminRoute";
 import PaymentManagement from "../pages/AdminDashboard/PaymentManagement/PaymentManagement";
 import SellerPaymentHistory from "../pages/SellerDashboard/SellerPaymentHistory/SellerPaymentHistory";
 import AdminSalesReport from "../pages/AdminDashboard/AdminSalesReport/AdminSalesReport";
+import AdminHome from "../pages/AdminDashboard/AdminHome/AdminHome";
+import SellerHome from "../pages/SellerDashboard/SellerHome/SellerHome";
 
 
 export const router = createBrowserRouter([
@@ -95,6 +97,10 @@ export const router = createBrowserRouter([
         Component: InvoicePage
       },
       {
+        path: 'adminHome',
+        element:<AdminRoute><AdminHome></AdminHome></AdminRoute>
+      },
+      {
         path: 'manageCategory',
         element:<AdminRoute><ManageCategory></ManageCategory></AdminRoute>
       },
@@ -127,6 +133,10 @@ export const router = createBrowserRouter([
       {
         path:'sellerPayment',
         Component:SellerPaymentHistory
+      },
+      {
+        path:'sellerHome',
+        Component:SellerHome
       }
 
 

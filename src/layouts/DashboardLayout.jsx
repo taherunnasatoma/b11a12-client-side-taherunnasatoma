@@ -49,14 +49,15 @@ const DashboardLayout = () => {
   
   </Link>
 
-  <li>
-    <NavLink to='/' className="flex items-center gap-2">
-      <FaHome /> Home
-    </NavLink>
-  </li>
+ 
  {/* Admin Menu */}
 {!roleLoading && role === 'admin' && (
   <>
+   <li>
+    <NavLink to='/dashboard/adminHome' className="flex items-center gap-2">
+      <FaHome /> Home
+    </NavLink>
+  </li>
     <li>
       <NavLink to='/dashboard/manageCategory'>
         <FaTags /> Manage Category
@@ -88,6 +89,11 @@ const DashboardLayout = () => {
 {/* Seller Menu */}
 {!roleLoading && role === 'seller' && (
   <>
+  <li>
+    <NavLink to='/dashboard/sellerHome' className="flex items-center gap-2">
+      <FaHome /> Home
+    </NavLink>
+  </li>
     <li>
       <NavLink to='/dashboard/manageMedicines'>
         <FaPills /> Manage Medicines
@@ -116,11 +122,7 @@ const DashboardLayout = () => {
         <FaHistory /> Payment History
       </NavLink>
     </li>
-    <li>
-      <NavLink to='/dashboard/invoice'>
-        <FaFileInvoice /> Invoice Page
-      </NavLink>
-    </li>
+    
   </>
 )}
 
