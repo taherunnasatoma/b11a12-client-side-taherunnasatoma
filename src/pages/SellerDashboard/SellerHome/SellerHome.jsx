@@ -20,15 +20,15 @@ const SellerHome = () => {
 
       <section className="grid grid-cols-1 sm:grid-cols-2 gap-8">
         {/* Total Paid Revenue Card */}
-        <article className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-center items-center border border-gray-200 hover:shadow-lg transition-shadow">
-          <h2 className="text-xl font-semibold text-gray-700 mb-2">Total Paid Revenue</h2>
-          <p className="text-5xl font-bold text-green-600">${totalPaidRevenue.toFixed(2)}</p>
+        <article className="bg-[#82b440] shadow-md rounded-lg p-6 flex flex-col justify-center items-center border border-gray-200 hover:shadow-lg transition-shadow">
+          <h2 className="text-xl font-semibold text-white mb-2">Total Paid Revenue</h2>
+          <p className="text-5xl font-bold text-white">${totalPaidRevenue.toFixed(2)}</p>
         </article>
 
         {/* Total Paid Orders Card */}
-        <article className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-center items-center border border-gray-200 hover:shadow-lg transition-shadow">
-          <h2 className="text-xl font-semibold text-gray-700 mb-2">Total Paid Orders</h2>
-          <p className="text-5xl font-bold text-blue-600">{totalPaidOrders}</p>
+        <article className="bg-[#82b440] shadow-md rounded-lg p-6 flex flex-col justify-center items-center border border-gray-200 hover:shadow-lg transition-shadow">
+          <h2 className="text-xl font-semibold text-white mb-2">Total Paid Orders</h2>
+          <p className="text-5xl font-bold text-white">{totalPaidOrders}</p>
         </article>
       </section>
     </main>

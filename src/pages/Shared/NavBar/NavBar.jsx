@@ -22,12 +22,12 @@ const NavBar = () => {
     <>
       <li><NavLink to='/'>Home</NavLink></li>
       <li><NavLink to='/shop'>Shop</NavLink></li>
-      <li><NavLink to='/addCategory'>Add Category</NavLink></li>
+    
     </>
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-md px-4">
+    <div className="navbar bg-base-100 shadow-md px-4 sticky top-0 z-50">
       
       <div className="navbar-start">
         {/* Mobile Dropdown */}
@@ -78,7 +78,7 @@ const NavBar = () => {
 
 
         {/* Language Dropdown Placeholder */}
-        <div className="dropdown dropdown-end hidden sm:block">
+        {/* <div className="dropdown dropdown-end hidden sm:block">
           <div tabIndex={0} role="button" className="btn btn-ghost">
             Language <FaChevronDown className="ml-1" />
           </div>
@@ -86,7 +86,7 @@ const NavBar = () => {
             <li><a>English</a></li>
             <li><a>বাংলা</a></li>
           </ul>
-        </div>
+        </div> */}
 
         {/* User Avatar Dropdown OR Join Us */}
         {user ? (
@@ -97,7 +97,7 @@ const NavBar = () => {
               </div>
             </div>
             <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-              <li><Link to="/updateProfile">Update Profile</Link></li>
+              {/* <li><Link to="/updateProfile">Update Profile</Link></li> */}
               <li><Link to="/dashboard">Dashboard</Link></li>
               <li><button onClick={handleLogOut}>Logout</button></li>
             </ul>

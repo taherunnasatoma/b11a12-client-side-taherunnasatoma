@@ -74,18 +74,18 @@ const ManageCategory = () => {
     };
 
     return (
-        <div className="p-6">
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Manage Categories ({categories.length})</h2>
-                <button onClick={() => setIsModalOpen(true)} className="btn bg-green-600 text-white">
+        <div className="p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+                <h2 className="text-3xl font-semibold mb-6 text-gray-800">🗂️Manage Categories ({categories.length})</h2>
+                <button onClick={() => setIsModalOpen(true)} className="btn bg-[#82b440] hover:bg-[#6ea431] text-white px-4 py-2 rounded">
                     + Add Category
                 </button>
             </div>
 
             {/* Table */}
-            <div className="overflow-x-auto bg-white shadow rounded">
-                <table className="table w-full">
-                    <thead className="bg-base-200">
+            <div className="overflow-x-auto rounded shadow bg-white">
+                <table className="table table-zebra w-full">
+                    <thead className="bg-base-200 text-sm">
                         <tr>
                             <th>#</th>
                             <th>Name</th>
@@ -100,21 +100,22 @@ const ManageCategory = () => {
                                 <td>{idx + 1}</td>
                                 <td>{cat.name}</td>
                                 <td>
-                                    <img src={cat.image} alt={cat.name} className="w-16 h-16 object-cover rounded" />
+                                    <img src={cat.image} alt={cat.name} className="w-12 h-12 object-cover rounded" />
                                 </td>
                                 <td>{cat.created_by}</td>
-                                <td className="space-x-2">
+                                <td className="space-x-1">
                                     <button
                                         onClick={() => setEditingCategory(cat)}
-                                        className="btn btn-sm btn-info"
+                                        className="btn btn-xs sm:btn-sm bg-blue-500 hover:bg-blue-600 text-white"
                                     >
                                         Edit
                                     </button>
-                                  
-                                    <button onClick={() => handleDelete(cat._id)} className="btn btn-sm btn-error">
+                                    <button
+                                        onClick={() => handleDelete(cat._id)}
+                                        className="btn btn-xs sm:btn-sm bg-red-500 hover:bg-red-600 text-white"
+                                    >
                                         Delete
                                     </button>
-
                                 </td>
                             </tr>
                         ))}
@@ -122,113 +123,95 @@ const ManageCategory = () => {
                 </table>
             </div>
 
-            {/* Modal */}
+            {/* Add Category Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-white w-full max-w-md p-6 rounded shadow-lg relative">
-                        <button
-                            onClick={() => setIsModalOpen(false)}
-                            className="absolute top-2 right-3 text-gray-500 hover:text-red-600"
-                        >
-                            ✕
+                <ModalWrapper onClose={() => setIsModalOpen(false)} title="Add New Category">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                        <Input label="Category Name" name="categoryName" register={register} errors={errors} />
+                        <Input label="Image URL" name="categoryImage" register={register} errors={errors} />
+                        <button type="submit" className="btn w-full bg-[#82b440] hover:bg-[#6ea431] text-white">
+                            Add Category
                         </button>
-                        <h3 className="text-xl font-bold mb-4">Add New Category</h3>
-
-                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                            <div>
-                                <label className="label">Category Name</label>
-                                <input
-                                    {...register('categoryName', { required: true })}
-                                    className="input input-bordered w-full"
-                                    placeholder="e.g., Tablet, Capsule"
-                                />
-                                {errors.categoryName && <p className="text-red-500 text-sm">Category name is required</p>}
-                            </div>
-
-                            <div>
-                                <label className="label">Image URL</label>
-                                <input
-                                    {...register('categoryImage', { required: true })}
-                                    className="input input-bordered w-full"
-                                    placeholder="Paste image URL"
-                                />
-                                {errors.categoryImage && <p className="text-red-500 text-sm">Image URL is required</p>}
-                            </div>
-
-                            <button type="submit" className="btn bg-green-600 w-full text-white">
-                                Add Category
-                            </button>
-
-
-                        </form>
-                    </div>
-                </div>
+                    </form>
+                </ModalWrapper>
             )}
 
+            {/* Edit Category Modal */}
             {editingCategory && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-white w-full max-w-md p-6 rounded shadow-lg relative">
-                        <button
-                            onClick={() => setEditingCategory(null)}
-                            className="absolute top-2 right-3 text-gray-500 hover:text-red-600"
-                        >
-                            ✕
-                        </button>
-                        <h3 className="text-xl font-bold mb-4">Update Category</h3>
-
-                        <form
-                            onSubmit={handleSubmit(async (data) => {
-                                const updatedCategory = {
-                                    name: data.categoryName,
-                                    image: data.categoryImage,
-                                    updatedAt: new Date(),
-                                };
-
-                                try {
-                                    const res = await axiosSecure.patch(`/categories/${editingCategory._id}`, updatedCategory);
-                                    if (res.data.success) {
-                                        Swal.fire('Success', 'Category updated successfully!', 'success');
-                                        refetch();
-                                        setEditingCategory(null);
-                                    } else {
-                                        Swal.fire('Error', 'Failed to update category', 'error');
-                                    }
-                                } catch (error) {
-                                    Swal.fire('Error', 'Something went wrong', 'error');
+                <ModalWrapper onClose={() => setEditingCategory(null)} title="Update Category">
+                    <form
+                        onSubmit={handleSubmit(async (data) => {
+                            const updatedCategory = {
+                                name: data.categoryName,
+                                image: data.categoryImage,
+                                updatedAt: new Date(),
+                            };
+                            try {
+                                const res = await axiosSecure.patch(`/categories/${editingCategory._id}`, updatedCategory);
+                                if (res.data.success) {
+                                    Swal.fire('Success', 'Category updated successfully!', 'success');
+                                    refetch();
+                                    setEditingCategory(null);
+                                } else {
+                                    Swal.fire('Error', 'Failed to update category', 'error');
                                 }
-                            })}
-                            className="space-y-4"
-                        >
-                            <div>
-                                <label className="label">Category Name</label>
-                                <input
-                                    defaultValue={editingCategory.name}
-                                    {...register('categoryName', { required: true })}
-                                    className="input input-bordered w-full"
-                                />
-                                {errors.categoryName && <p className="text-red-500 text-sm">Category name is required</p>}
-                            </div>
-
-                            <div>
-                                <label className="label">Image URL</label>
-                                <input
-                                    defaultValue={editingCategory.image}
-                                    {...register('categoryImage', { required: true })}
-                                    className="input input-bordered w-full"
-                                />
-                                {errors.categoryImage && <p className="text-red-500 text-sm">Image URL is required</p>}
-                            </div>
-
-                            <button type="submit" className="btn bg-blue-600 w-full text-white">
-                                Update Category
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                            } catch (error) {
+                                Swal.fire('Error', 'Something went wrong', 'error');
+                            }
+                        })}
+                        className="space-y-4"
+                    >
+                        <Input
+                            label="Category Name"
+                            name="categoryName"
+                            register={register}
+                            errors={errors}
+                            defaultValue={editingCategory.name}
+                        />
+                        <Input
+                            label="Image URL"
+                            name="categoryImage"
+                            register={register}
+                            errors={errors}
+                            defaultValue={editingCategory.image}
+                        />
+                        <button type="submit" className="btn w-full bg-blue-600 hover:bg-blue-700 text-white">
+                            Update Category
+                        </button>
+                    </form>
+                </ModalWrapper>
             )}
-
         </div>
     );
 };
+
+// Reusable Input Field
+const Input = ({ label, name, register, errors, defaultValue }) => (
+    <div>
+        <label className="label">{label}</label>
+        <input
+            {...register(name, { required: true })}
+            defaultValue={defaultValue}
+            className="input input-bordered w-full"
+        />
+        {errors[name] && <p className="text-red-500 text-sm mt-1">{label} is required</p>}
+    </div>
+);
+
+// Modal Wrapper
+const ModalWrapper = ({ onClose, title, children }) => (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+        <div className="bg-white max-w-md w-full rounded-lg p-6 relative shadow-lg">
+            <button
+                onClick={onClose}
+                className="absolute top-2 right-3 text-gray-600 hover:text-red-500 text-lg"
+            >
+                ✕
+            </button>
+            <h3 className="text-xl font-semibold mb-4">{title}</h3>
+            {children}
+        </div>
+    </div>
+);
 
 export default ManageCategory;

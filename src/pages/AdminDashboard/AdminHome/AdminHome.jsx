@@ -28,7 +28,7 @@ const AdminHome = () => {
           <h3 className="text-xl font-semibold">Total Orders</h3>
           <p className="text-3xl">{totalOrders}</p>
         </div>
-        <div className="bg-green-500 text-white p-6 rounded-xl shadow">
+        <div className="bg-[#82b440] text-white p-6 rounded-xl shadow">
           <h3 className="text-xl font-semibold">Total Revenue</h3>
           <p className="text-3xl">${totalRevenue.toFixed(2)}</p>
         </div>

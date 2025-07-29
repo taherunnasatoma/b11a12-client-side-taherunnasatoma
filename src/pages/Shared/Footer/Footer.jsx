@@ -1,19 +1,25 @@
 import React from 'react';
-import logo from '../../../assets/logo1.png'
+import logo from '../../../assets/logo1.png';
 import { Link } from 'react-router';
 
 const Footer = () => {
-    return (
-        <footer className="footer sm:footer-horizontal bg-black text-neutral-content p-10">
-  <aside>
-   <Link to='/'><img src={logo} alt="Litenix Logo" className="h-20 w-auto" /></Link> 
-    <p>
-      ACME Industries Ltd.
-      <br />
-      Providing reliable tech since 1992
-    </p>
-  </aside>
-  <nav>
+  return (
+    <footer className="bg-black text-neutral-content px-6 py-10 sm:py-12">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start gap-10">
+        {/* Logo & Description */}
+        <aside>
+          <Link to="/">
+            <img src={logo} alt="Litenix Logo" className="h-16 w-auto mb-2" />
+          </Link>
+          <p className="text-sm">
+            Litenix Pharmacy Ltd.
+            <br />
+            Reliable healthcare since 1992.
+          </p>
+        </aside>
+
+        {/* Social Media */}
+        <nav>
     <h6 className="footer-title">Social</h6>
     <div className="grid grid-flow-col gap-4">
       <a>
@@ -51,8 +57,14 @@ const Footer = () => {
       </a>
     </div>
   </nav>
-</footer>
-    );
+      </div>
+
+      {/* Footer Bottom */}
+      <div className="text-center text-sm mt-8 text-gray-400">
+        © {new Date().getFullYear()} Litenix Pharmacy. All rights reserved.
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;

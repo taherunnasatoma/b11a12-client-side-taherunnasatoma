@@ -26,7 +26,7 @@ const SellerPaymentHistory = () => {
       ) : (
         <div className="overflow-x-auto">
           <table className="table-auto w-full border border-gray-300 text-sm">
-            <thead className="bg-gray-100">
+            <thead className="bg-[#82b440] text-white">
               <tr>
                 <th className="px-4 py-2 border">#</th>
                 <th className="px-4 py-2 border">Invoice</th>

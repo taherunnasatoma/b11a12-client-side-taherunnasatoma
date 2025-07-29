@@ -1,19 +1,17 @@
-// src/pages/Shop.jsx
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import { FaEye, FaCartPlus } from 'react-icons/fa';
 import Modal from 'react-modal';
 import { useCart } from '../../contexts/CardContext/CardContext';
+import toast from 'react-hot-toast'; // ✅ import toast
 
 Modal.setAppElement('#root');
 
 const Shop = () => {
     const [selectedMedicine, setSelectedMedicine] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [cart, setCart] = useState([]); // local cart state
     const { addToCart } = useCart();
-
 
     const { data: medicines = [], isLoading } = useQuery({
         queryKey: ['medicines'],
@@ -28,9 +26,9 @@ const Shop = () => {
         setIsModalOpen(true);
     };
 
-    const handleSelect = (medicine) => {
-        setCart((prev) => [...prev, medicine]);
-        alert(`${medicine.itemName} added to cart`);
+    const handleAddToCart = (medicine) => {
+        addToCart(medicine);
+        toast.success(`${medicine.itemName} added to cart!`); // ✅ show toast
     };
 
     if (isLoading) return <p>Loading...</p>;
@@ -64,7 +62,7 @@ const Shop = () => {
                                     <button onClick={() => handleView(med)} className="text-blue-500 hover:text-blue-700">
                                         <FaEye />
                                     </button>
-                                    <button onClick={() => addToCart(med)} className="btn btn-sm btn-success">
+                                    <button onClick={() => handleAddToCart(med)} className="btn btn-sm btn-success">
                                         <FaCartPlus />
                                     </button>
                                 </td>

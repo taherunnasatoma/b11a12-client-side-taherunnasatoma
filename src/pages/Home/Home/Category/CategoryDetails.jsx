@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { FaEye, FaCartPlus } from 'react-icons/fa';
 import Modal from 'react-modal';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
+import { useCart } from '../../../../contexts/CardContext/CardContext';
+import toast from 'react-hot-toast';
 
 Modal.setAppElement('#root');
 
@@ -12,6 +14,12 @@ const CategoryDetails = () => {
   const { categoryName } = useParams();
   const axiosSecure = useAxiosSecure();
   const [selectedMedicine, setSelectedMedicine] = useState(null);
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (medicine) => {
+    addToCart(medicine);
+    toast.success(`${medicine.itemName} added to cart!`);
+  };
 
   const { data: medicines = [], isLoading } = useQuery({
     queryKey: ['category-medicines', categoryName],
@@ -50,7 +58,13 @@ const CategoryDetails = () => {
                 <td>{med.company}</td>
                 <td className="flex gap-2">
                   <button className="btn btn-sm btn-info" onClick={() => setSelectedMedicine(med)}><FaEye /></button>
-                  <button className="btn btn-sm btn-success"><FaCartPlus /></button>
+                  <button
+                    className="btn btn-sm btn-success"
+                    onClick={() => handleAddToCart(med)}
+                  >
+                    <FaCartPlus />
+                  </button>
+
                 </td>
               </tr>
             ))}
