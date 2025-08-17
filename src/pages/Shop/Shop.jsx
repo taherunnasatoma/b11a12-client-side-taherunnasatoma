@@ -1,16 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { FaEye, FaCartPlus } from 'react-icons/fa';
 import Modal from 'react-modal';
 import { useCart } from '../../contexts/CardContext/CardContext';
-import toast from 'react-hot-toast'; // ✅ import toast
+import toast from 'react-hot-toast';
 
 Modal.setAppElement('#root');
 
 const Shop = () => {
     const [selectedMedicine, setSelectedMedicine] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [sortOrder, setSortOrder] = useState('asc'); // 'asc' or 'desc'
     const { addToCart } = useCart();
 
     const { data: medicines = [], isLoading } = useQuery({
@@ -28,14 +29,39 @@ const Shop = () => {
 
     const handleAddToCart = (medicine) => {
         addToCart(medicine);
-        toast.success(`${medicine.itemName} added to cart!`); // ✅ show toast
+        toast.success(`${medicine.itemName} added to cart!`);
     };
+
+    // Memoized sorted medicines
+    const sortedMedicines = useMemo(() => {
+        if (!medicines) return [];
+        return [...medicines].sort((a, b) => {
+            if (sortOrder === 'asc') return a.price - b.price;
+            else return b.price - a.price;
+        });
+    }, [medicines, sortOrder]);
 
     if (isLoading) return <p>Loading...</p>;
 
     return (
         <div className="p-4">
             <h2 className="text-2xl font-bold mb-4 text-center">Shop All Medicines</h2>
+
+            <div className="flex justify-end mb-2 gap-2">
+                <button
+                    className={`btn btn-sm ${sortOrder === 'asc' ? 'bg-[#82b440]' : 'btn-outline'}`}
+                    onClick={() => setSortOrder('asc')}
+                >
+                    Sort by Price ↑
+                </button>
+                <button
+                    className={`btn btn-sm ${sortOrder === 'desc' ? 'bg-[#82b440]' : 'btn-outline'}`}
+                    onClick={() => setSortOrder('desc')}
+                >
+                    Sort by Price ↓
+                </button>
+            </div>
+
             <div className="overflow-x-auto">
                 <table className="min-w-full border border-gray-300">
                     <thead className="bg-gray-200">
@@ -50,7 +76,7 @@ const Shop = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {medicines.map((med) => (
+                        {sortedMedicines.map((med) => (
                             <tr key={med._id} className="border-b hover:bg-gray-100">
                                 <td className="px-4 py-2">{med.itemName}</td>
                                 <td className="px-4 py-2">{med.genericName}</td>
