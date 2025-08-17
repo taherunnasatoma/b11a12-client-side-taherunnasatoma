@@ -33,7 +33,7 @@ const SellerHome = () => {
   const COLORS = ['#82b440', '#f59e0b'];
 
   return (
-    <main className="max-w-6xl mx-auto p-6 space-y-10">
+    <main className="  p-6 space-y-8">
       <header>
         <h1 className="text-3xl font-extrabold text-gray-900">Seller Dashboard</h1>
         <p className="mt-2 text-gray-600">Overview of your sales and orders</p>
