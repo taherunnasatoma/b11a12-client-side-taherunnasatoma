@@ -53,11 +53,19 @@ const DashboardLayout = () => {
  {/* Admin Menu */}
 {!roleLoading && role === 'admin' && (
   <>
+   
    <li>
+
     <NavLink to='/dashboard/adminHome' className="flex items-center gap-2">
       <FaHome /> Home
     </NavLink>
+
   </li>
+  <li>
+      <NavLink to='/dashboard/userProfile'>
+        <FaUsers /> My Profile
+      </NavLink>
+    </li>
     <li>
       <NavLink to='/dashboard/manageCategory'>
         <FaTags /> Manage Category
@@ -94,6 +102,11 @@ const DashboardLayout = () => {
       <FaHome /> Home
     </NavLink>
   </li>
+  <li>
+      <NavLink to='/dashboard/userProfile'>
+        <FaUsers /> My Profile
+      </NavLink>
+    </li>
     <li>
       <NavLink to='/dashboard/manageMedicines'>
         <FaPills /> Manage Medicines
@@ -120,6 +133,11 @@ const DashboardLayout = () => {
      <li>
       <NavLink to='/dashboard/myOrders'>
         <FaHistory /> Payment History
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to='/dashboard/userProfile'>
+        <FaUsers /> My Profile
       </NavLink>
     </li>
     

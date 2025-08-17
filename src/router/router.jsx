@@ -25,6 +25,8 @@ import SellerPaymentHistory from "../pages/SellerDashboard/SellerPaymentHistory/
 import AdminSalesReport from "../pages/AdminDashboard/AdminSalesReport/AdminSalesReport";
 import AdminHome from "../pages/AdminDashboard/AdminHome/AdminHome";
 import SellerHome from "../pages/SellerDashboard/SellerHome/SellerHome";
+import { UserPen } from "lucide-react";
+import UserProfile from "../pages/UserProfile/UserProfile";
 
 
 export const router = createBrowserRouter([
@@ -121,6 +123,12 @@ export const router = createBrowserRouter([
 
         path: 'paymentManagement',
         element: <AdminRoute><PaymentManagement></PaymentManagement></AdminRoute>
+
+      },
+      {
+        path:'userProfile',
+        Component:UserProfile
+        
 
       },
       {
