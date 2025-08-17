@@ -29,7 +29,7 @@ const Banner = () => {
     >
       {bannerAds.map((ad) => (
      <SwiperSlide key={ad._id}>
-  <div className="w-full h-[70vh] relative overflow-hidden">
+  <div className="w-full h-[80vh] relative overflow-hidden">
     <img
       src={ad.image}
       alt={ad.medicineName}
