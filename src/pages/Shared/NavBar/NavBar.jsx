@@ -27,7 +27,7 @@ const NavBar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-md px-4 sticky top-0 z-50">
+    <div className="navbar bg-gray-50 shadow-md px-4 sticky top-0 z-50">
       
       <div className="navbar-start">
         {/* Mobile Dropdown */}
@@ -103,9 +103,14 @@ const NavBar = () => {
             </ul>
           </div>
         ) : (
+          <>
           <Link to="/login">
-            <button className="btn bg-[#82b440] text-white">Join Us</button>
+            <button className="btn bg-[#82b440] text-white">Login</button>
           </Link>
+          <Link to="/register">
+            <button className="btn bg-[#82b440] text-white">Register</button>
+          </Link>
+          </>
         )}
       </div>
     </div>
