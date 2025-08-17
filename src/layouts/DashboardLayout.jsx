@@ -129,7 +129,13 @@ const DashboardLayout = () => {
 {/* Normal User Menu */}
 {!roleLoading && role === 'user' && (
   <>
+
     
+     <li>
+      <NavLink to='/dashboard/userHome'>
+        <FaHome /> Home
+      </NavLink>
+    </li>
      <li>
       <NavLink to='/dashboard/myOrders'>
         <FaHistory /> Payment History

@@ -27,6 +27,7 @@ import AdminHome from "../pages/AdminDashboard/AdminHome/AdminHome";
 import SellerHome from "../pages/SellerDashboard/SellerHome/SellerHome";
 import { UserPen } from "lucide-react";
 import UserProfile from "../pages/UserProfile/UserProfile";
+import UserHome from "../pages/UserDasboard/UserHome/UserHome";
 
 
 export const router = createBrowserRouter([
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
       {
         path: 'myOrders',
         Component: MyOrders
+      },
+      {
+        path:'userHome',
+        Component:UserHome
       },
       {
         path: 'invoice/:invoiceNumber',
